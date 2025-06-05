@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>我的 LIFF 頁面</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+  <h2>LIFF 測試頁面</h2>
+  <button onclick="login()">LINE Login</button>
+  <pre id="result"></pre>
+
+  <script>
+    async function initLIFF() {
+      await liff.init({ liffId: "你的 LIFF ID" });
+
+      if (!liff.isLoggedIn()) {
+        liff.login();
+      } else {
+        const profile = await liff.getProfile();
+        document.getElementById("result").textContent = JSON.stringify(profile, null, 2);
+      }
+    }
+
+    function login() {
+      liff.login();
+    }
+
+    window.onload = initLIFF;
+  </script>
+</body>
+</html>
